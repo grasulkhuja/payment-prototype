@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col container mx-auto">
+  <div class="flex flex-col container mx-auto md:flex-row">
     <PaymentReceipt />
     <PaymentForm />
   </div>

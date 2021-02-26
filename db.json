@@ -1,0 +1,24 @@
+{
+  "schemes": [
+    {
+      "type": "Humo",
+      "number": 9860,
+      "logo": "@/assets/humo.svg"
+    },
+    {
+      "type": "UzCard",
+      "number": 8600,
+      "logo": "@/assets/uzcard.svg"
+    },
+    {
+      "type": "MasterCard",
+      "number": 51,
+      "logo": "@/assets/mastercard.svg"
+    },
+    {
+      "type": "Visa",
+      "number": 4,
+      "logo": "@/assets/visa.svg"
+    }
+  ]
+}
