@@ -7,6 +7,10 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
+    redirect: { name: 'payment' }
+  },
+  {
+    path: '/:orderid',
     name: 'payment',
     component: Payment
   }

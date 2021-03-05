@@ -78,7 +78,7 @@ export default {
   methods: {
     pay() {
       this.$store.dispatch('form/pay', {
-        uuid: 'ab79f7c4-5806-49b7-a7a9-50f775b39bca',
+        uuid: 'ab56d969-732d-401b-9f1a-58fed78334f8',
         pan: this.cardDetails.cardNumber
       })
     }

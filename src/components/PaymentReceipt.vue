@@ -71,10 +71,7 @@ import { mapState } from 'vuex'
 export default {
   name: 'PaymentReceipt',
   created() {
-    this.$store.dispatch(
-      'form/getFormInfo',
-      'ab79f7c4-5806-49b7-a7a9-50f775b39bca'
-    )
+    this.$store.dispatch('form/getFormInfo', this.$route.params.orderid)
   },
   computed: {
     ...mapState(['form'])
