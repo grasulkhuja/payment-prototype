@@ -5,9 +5,7 @@
     <img
       class="relative object-cover w-full h-full rounded-xl"
       :src="
-        'http://10.1.1.14:8080/static/bgs/card/' +
-          currentCardBackground +
-          '.jpeg'
+        'http://10.1.1.14:80/static/bgs/card/' + currentCardBackground + '.jpeg'
       "
       alt="Card background"
     />
@@ -30,7 +28,7 @@
             Cardholder name
           </p>
         </div>
-        <img class="w-20 h-20" :src="getCardType" alt="Card logo" />
+        <img class="w-20 h-20" :src="cardType" alt="Card type" />
       </div>
       <div class="pt-6 pr-6">
         <div class="flex justify-between">
@@ -42,10 +40,10 @@
           </div>
 
           <div class="font-light text-md">
-            <p v-if="cardDetails.cvv" class="">
+            <p>
               {{ cardDetails.cvv }}
             </p>
-            <p v-else>CVV</p>
+            <p></p>
           </div>
         </div>
       </div>
@@ -54,39 +52,22 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 export default {
   name: 'PaymentFormDebitCard',
   data() {
     return {
-      currentCardBackground: Math.floor(Math.random() * 15 + 1),
-      uz: false
+      currentCardBackground: Math.floor(Math.random() * 15 + 1)
     }
   },
   props: {
     cardDetails: {
       type: Object,
       default: () => {}
+    },
+    cardType: {
+      type: String,
+      default: () => ''
     }
-  },
-  computed: {
-    ...mapState(['card']),
-    getCardType() {
-      if (this.cardDetails.cardNumber === null)
-        return ''
-      if (this.cardDetails.cardNumber.startsWith('9860'))
-        return 'http://10.1.1.14:8080/static/schemes/humo.svg'
-      if (this.cardDetails.cardNumber.startsWith('5'))
-        return 'http://10.1.1.14:8080/static/schemes/mastercard.svg'
-      if (this.cardDetails.cardNumber.startsWith('8600'))
-        return 'http://10.1.1.14:8080/static/schemes/uzcard.svg'
-      if (this.cardDetails.cardNumber.startsWith('4'))
-        return 'http://10.1.1.14:8080/static/schemes/visa.svg'
-      return ''
-    }
-  },
-  created() {
-    this.$store.dispatch('card/getCardTypes')
   }
 }
 </script>
