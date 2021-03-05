@@ -81,7 +81,6 @@ export default {
   name: 'PaymentForm',
   components: {
     PaymentFormDebitCard: () => import('@/components/PaymentFormDebitCard.vue')
-    // TheFadeTransition: () => import('@/components/TheFadeTransition.vue')
   },
   methods: {
     pay() {
