@@ -9,8 +9,8 @@
 export default {
   name: 'Payment',
   components: {
-    PaymentForm: () => import('@/components/PaymentForm'),
-    PaymentReceipt: () => import('@/components/PaymentReceipt')
+    PaymentReceipt: () => import('@/components/PaymentReceipt'),
+    PaymentForm: () => import('@/components/PaymentForm')
   }
 }
 </script>

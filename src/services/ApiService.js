@@ -14,7 +14,6 @@ export default {
   },
 
   async pay(uuid, credentials) {
-    console.log(credentials)
-    return await axios.post('/orders/' + uuid + '/pay', credentials)
+    return await axios.post('/order/' + uuid + '/pay', credentials)
   }
 }

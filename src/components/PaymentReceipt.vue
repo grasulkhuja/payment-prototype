@@ -9,7 +9,7 @@
       height="150"
     />
     <p class="text-gray-700 mt-2 mb-5">AliExpress</p>
-    <p class="text-gray-800 mt-4 text-6xl text-opacity-80 my-6">
+    <p class="text-gray-800 mt-4 text-6xl text-opacity-80 my-6 text-center">
       {{ form.formInfo.total }} {{ form.formInfo.currency }}
     </p>
     <!--  TRANSACTION NUMBER  -->
