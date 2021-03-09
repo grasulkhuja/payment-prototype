@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="bg-opacity-5 bg-gray-100">
+  <div id="app">
     <router-view />
   </div>
 </template>

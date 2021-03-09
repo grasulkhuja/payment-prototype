@@ -35,7 +35,9 @@
         >
           <div class="flex w-full justify-between">
             <p>{{ good.name }}</p>
-            <p>{{ good.amount }}</p>
+            <div>
+              <p>{{ good.amount }} {{ form.formInfo.currency }}</p>
+            </div>
           </div>
           <ul class="text-gray-800 text-opacity-80">
             <li class="flex w-full justify-between px-4">

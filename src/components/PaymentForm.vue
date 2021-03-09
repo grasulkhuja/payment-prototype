@@ -10,7 +10,7 @@
           type="text"
           id="pan"
           class="rounded-lg w-full placeholder-gray-800 placeholder-opacity-75 block"
-          placeholder="Card number"
+          placeholder="1234 5678 9012 3456"
           required
           v-model="cardDetails.pan"
           v-mask="masks.panMask"
@@ -128,16 +128,14 @@ export default {
 }
 </script>
 <style>
-/* Enter and leave animations can use different */
-/* durations and timing functions.              */
 .slide-fade-enter-active {
   transition: all 0.3s ease;
 }
 .slide-fade-leave-active {
   transition: all 0.3s ease;
 }
-.slide-fade-enter, .slide-fade-leave-to
-  /* .slide-fade-leave-active below version 2.1.8 */ {
+.slide-fade-enter,
+.slide-fade-leave-to {
   //transform: translateY(-10px);
   margin-top: -90px;
   opacity: 0;

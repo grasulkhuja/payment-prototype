@@ -11,7 +11,7 @@
     />
     <div class="w-full px-6 absolute top-6">
       <div class="pt-1">
-        <div class="font-medium tracking-more-wider text-xl">
+        <div class="font-medium tracking-more-wider text-xl sm:text-2xl">
           <p v-if="cardDetails.pan">
             {{ cardDetails.pan }}
           </p>
