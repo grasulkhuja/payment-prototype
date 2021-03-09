@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col mt-4 items-center w-full shadow-lg">
+  <div class="flex flex-col mt-4 items-center w-full shadow-md">
     <PaymentFormDebitCard :cardDetails="cardDetails" :card-type="getCardType" />
     <form @submit.prevent="pay" class="px-6 w-full md:w-2/3">
       <label class="my-4 flex flex-col" for="pan">

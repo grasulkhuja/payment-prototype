@@ -1,8 +1,10 @@
 <template>
-  <div class="flex flex-col items-center mt-4 pt-4 md:shadow-lg md:w-2/5 mr-1">
+  <div
+    class="flex flex-col items-center shadow-md mt-4 pt-4 md:w-2/5 mr-1 receipt"
+  >
     <!--  LOGO  -->
     <img
-      class="rounded-full"
+      class="rounded-full mt-5"
       src="https://androidinsider.ru/wp-content/uploads/2018/06/aliexpress.png"
       alt="Store logo"
       width="150"
@@ -79,4 +81,18 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style lang="scss">
+.receipt {
+  $triangle-size: 2px;
+  $stop1: $triangle-size * 1.4;
+  $stop2: $triangle-size * 0.3;
+  $stop1r: $stop1 + 0.08;
+  $stop2r: $stop2 + 0.08;
+  background: linear-gradient(135deg, transparent #{$stop1}, #242323 #{$stop1r})
+      top right,
+    linear-gradient(45deg, #242323 #{$stop2}, transparent #{$stop2r}) top left;
+  background-repeat: repeat-x;
+  background-size: ($triangle-size * 2) $triangle-size;
+  padding: $triangle-size 0;
+}
+</style>
