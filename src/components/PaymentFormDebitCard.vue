@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-96 h-56 bg-red-100 rounded-xl relative text-white shadow-2xl transition-transform transform hover:scale-105 mt-2"
+    class="w-72 h-52 sm:w-96 sm:h-56 bg-red-100 rounded-xl relative text-white shadow-2xl transition-transform transform hover:scale-105 mt-2"
   >
     <img
       class="relative object-cover w-full h-full rounded-xl"
