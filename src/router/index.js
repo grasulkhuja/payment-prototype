@@ -13,6 +13,11 @@ const routes = [
     path: '/:orderid',
     name: 'payment',
     component: Payment
+  },
+  {
+    path: '/acsform',
+    name: 'acsform',
+    component: () => import('@/views/ACSForm.vue')
   }
 ]
 

@@ -47,7 +47,6 @@
             <p>
               {{ cardDetails.cvv }}
             </p>
-            <p></p>
           </div>
         </div>
       </div>

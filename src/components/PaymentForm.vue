@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col mt-4 items-center w-full shadow-md">
+  <div class="flex flex-col mt-4 items-center w-full shadow-md" v-if="!acsForm">
     <PaymentFormDebitCard :cardDetails="cardDetails" :card-type="getCardType" />
     <form @submit.prevent="pay" class="px-6 w-full md:w-2/3">
       <label class="my-4 flex flex-col" for="pan">
@@ -74,6 +74,9 @@
       </button>
     </form>
   </div>
+  <div v-else class="flex flex-col mt-4 items-center w-full shadow-md">
+    ACS Form
+  </div>
 </template>
 
 <script>
@@ -84,11 +87,17 @@ export default {
   },
   methods: {
     pay() {
-      this.$store.dispatch('form/pay', {
-        uuid: this.$route.params.orderid,
-        cardDetails: this.cardDetails
-      })
+      if (this.hasCVV()) {
+        console.log(this.hasCVV)
+        this.$router.push()
+      }
     }
+    // pay() {
+    //   this.$store.dispatch('form/pay', {
+    //     uuid: this.$route.params.orderid,
+    //     cardDetails: this.cardDetails
+    //   })
+    // }
   },
   data() {
     return {
@@ -102,7 +111,9 @@ export default {
         cardholderName: '',
         expirationDate: null,
         cvv: null
-      }
+      },
+      ourACS: false,
+      acsForm: false
     }
   },
   computed: {
