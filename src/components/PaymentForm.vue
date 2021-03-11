@@ -2,20 +2,20 @@
   <div class="flex flex-col mt-4 items-center w-full shadow-md" v-if="!acsForm">
     <PaymentFormDebitCard :cardDetails="cardDetails" :card-type="getCardType" />
     <form @submit.prevent="pay" class="px-6 w-full md:w-2/3">
-      <label class="my-4 flex flex-col" for="pan">
+      <label class="mt-4 flex flex-col" for="pan">
         <span class="block mb-2 text-gray-800 text-opacity-80">
           Card number
         </span>
-        <input
-          type="text"
-          id="pan"
-          class="rounded-lg w-full placeholder-gray-800 placeholder-opacity-75 block"
-          placeholder="1234 5678 9012 3456"
-          required
-          v-model="cardDetails.pan"
-          v-mask="masks.panMask"
-        />
       </label>
+      <input
+        type="text"
+        id="pan"
+        class="rounded-lg w-full placeholder-gray-800 placeholder-opacity-75 block mb-4"
+        placeholder="1234 5678 9012 3456"
+        required
+        v-model="cardDetails.pan"
+        v-mask="masks.panMask"
+      />
       <transition name="slide-fade">
         <div v-if="hasCVV">
           <label for="cardholderName">
@@ -74,31 +74,12 @@
       </button>
     </form>
   </div>
-  <div v-else class="flex flex-col mt-4 items-center w-full shadow-md">
-    ACS Form
-  </div>
+  <PaymentACSForm v-else />
 </template>
 
 <script>
 export default {
   name: 'PaymentForm',
-  components: {
-    PaymentFormDebitCard: () => import('@/components/PaymentFormDebitCard.vue')
-  },
-  methods: {
-    pay() {
-      if (this.hasCVV()) {
-        console.log(this.hasCVV)
-        this.$router.push()
-      }
-    }
-    // pay() {
-    //   this.$store.dispatch('form/pay', {
-    //     uuid: this.$route.params.orderid,
-    //     cardDetails: this.cardDetails
-    //   })
-    // }
-  },
   data() {
     return {
       masks: {
@@ -112,9 +93,25 @@ export default {
         expirationDate: null,
         cvv: null
       },
-      ourACS: false,
       acsForm: false
     }
+  },
+  components: {
+    PaymentFormDebitCard: () => import('@/components/PaymentFormDebitCard.vue'),
+    PaymentACSForm: () => import('@/components/PaymentACSForm.vue')
+  },
+  methods: {
+    pay() {
+      if (!this.hasCVV) {
+        this.acsForm = true
+      }
+    }
+    // pay() {
+    //   this.$store.dispatch('form/pay', {
+    //     uuid: this.$route.params.orderid,
+    //     cardDetails: this.cardDetails
+    //   })
+    // }
   },
   computed: {
     getCardType() {

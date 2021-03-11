@@ -1,23 +1,31 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Payment from '../views/Payment.vue'
 
 Vue.use(VueRouter)
 
+const lazyLoad = componentPath => {
+  return () =>
+    import(/* webpackChunkName: '[request]' */ `@/views/${componentPath}.vue`)
+}
+
 const routes = [
   {
-    path: '/',
-    redirect: { name: 'payment' }
+    path: '/'
   },
   {
     path: '/:orderid',
     name: 'payment',
-    component: Payment
+    component: lazyLoad('Payment')
   },
   {
-    path: '/acsform',
-    name: 'acsform',
-    component: () => import('@/views/ACSForm.vue')
+    path: '/otp',
+    name: 'otp',
+    component: lazyLoad('ACSForm')
+  },
+  {
+    path: '/results',
+    name: 'results',
+    component: lazyLoad('Results')
   }
 ]
 
