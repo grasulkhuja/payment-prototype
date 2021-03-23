@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col mt-4 items-center w-full shadow-md" v-if="!acsForm">
+  <div class="flex flex-col mt-4 items-center w-full shadow-sm">
     <PaymentFormDebitCard :cardDetails="cardDetails" :card-type="getCardType" />
     <form @submit.prevent="pay" class="px-6 w-full md:w-2/3">
       <label class="mt-4 flex flex-col" for="pan">
@@ -11,7 +11,7 @@
         type="text"
         id="pan"
         class="rounded-lg w-full placeholder-gray-800 placeholder-opacity-75 block mb-4"
-        placeholder="1234 5678 9012 3456"
+        placeholder="Card number"
         required
         v-model="cardDetails.pan"
         v-mask="masks.panMask"
@@ -74,7 +74,6 @@
       </button>
     </form>
   </div>
-  <PaymentACSForm v-else />
 </template>
 
 <script>
@@ -92,26 +91,28 @@ export default {
         cardholderName: '',
         expirationDate: null,
         cvv: null
-      },
-      acsForm: false
+      }
     }
   },
   components: {
-    PaymentFormDebitCard: () => import('@/components/PaymentFormDebitCard.vue'),
-    PaymentACSForm: () => import('@/components/PaymentACSForm.vue')
+    PaymentFormDebitCard: () => import('@/components/PaymentFormDebitCard.vue')
   },
   methods: {
     pay() {
-      if (!this.hasCVV) {
-        this.acsForm = true
-      }
+      this.$store
+        .dispatch('payment/pay', {
+          uuid: this.$route.params.orderId,
+          cardDetails: this.cardDetails
+        })
+        .then(response => {
+          // console.log(response)
+          if (response.acsid) {
+            this.$router.push('/acs/challenge/' + response.acsid)
+            return
+          }
+          window.location.href = response.url
+        })
     }
-    // pay() {
-    //   this.$store.dispatch('form/pay', {
-    //     uuid: this.$route.params.orderid,
-    //     cardDetails: this.cardDetails
-    //   })
-    // }
   },
   computed: {
     getCardType() {
@@ -144,7 +145,7 @@ export default {
 }
 .slide-fade-enter,
 .slide-fade-leave-to {
-  //transform: translateY(-10px);
+  transform: translateY(-10px);
   margin-top: -90px;
   opacity: 0;
 }

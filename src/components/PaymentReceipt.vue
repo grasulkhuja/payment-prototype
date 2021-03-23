@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col items-center shadow-md mt-4 pt-4 md:w-2/5 mr-1 receipt"
+    class="flex flex-col items-center shadow-sm mt-4 pt-4 md:w-2/5 mr-1 receipt"
   >
     <!--  LOGO  -->
     <img
@@ -12,7 +12,7 @@
     />
     <p class="text-gray-700 mt-2 mb-5">AliExpress</p>
     <p class="text-gray-800 mt-4 text-6xl text-opacity-80 my-6 text-center">
-      {{ form.formInfo.total }} {{ form.formInfo.currency }}
+      {{ payment.receiptInfo.total }} {{ payment.receiptInfo.currency }}
     </p>
     <!--  TRANSACTION NUMBER  -->
     <div
@@ -30,13 +30,13 @@
       <ul>
         <li
           class="flex flex-col w-full"
-          v-for="(good, index) in form.formInfo.goods"
+          v-for="(good, index) in payment.receiptInfo.goods"
           :key="index"
         >
           <div class="flex w-full justify-between">
             <p>{{ good.name }}</p>
             <div>
-              <p>{{ good.amount }} {{ form.formInfo.currency }}</p>
+              <p>{{ good.amount }} {{ payment.receiptInfo.currency }}</p>
             </div>
           </div>
           <ul class="text-gray-800 text-opacity-80">
@@ -61,7 +61,7 @@
       class="flex w-full justify-between px-6 mt-6 border-2 border-dotted border-b-0 border-l-0 border-r-0 pt-6"
     >
       <p>Total</p>
-      <p>{{ form.formInfo.total }} {{ form.formInfo.currency }}</p>
+      <p>{{ payment.receiptInfo.total }} {{ payment.receiptInfo.currency }}</p>
     </div>
     <!--  STORE INFO  -->
     <div class="mt-auto mb-2">
@@ -75,10 +75,10 @@ import { mapState } from 'vuex'
 export default {
   name: 'PaymentReceipt',
   created() {
-    this.$store.dispatch('form/getFormInfo', this.$route.params.orderid)
+    this.$store.dispatch('payment/getReceiptInfo', this.$route.params.orderId)
   },
   computed: {
-    ...mapState(['form'])
+    ...mapState(['payment'])
   }
 }
 </script>

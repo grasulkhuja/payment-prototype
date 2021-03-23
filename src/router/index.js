@@ -10,16 +10,18 @@ const lazyLoad = componentPath => {
 
 const routes = [
   {
-    path: '/'
+    path: '/',
+    name: 'home',
+    component: lazyLoad('Home')
   },
   {
-    path: '/:orderid',
+    path: '/:orderId',
     name: 'payment',
     component: lazyLoad('Payment')
   },
   {
-    path: '/otp',
-    name: 'otp',
+    path: '/acs/challenge/:acsId',
+    name: 'acs',
     component: lazyLoad('ACSForm')
   },
   {

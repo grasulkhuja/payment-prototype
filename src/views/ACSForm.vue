@@ -1,11 +1,12 @@
 <template>
-  <div>ACS form</div>
+  <PaymentACSForm />
 </template>
 
 <script>
 export default {
-  name: 'ACSForm'
+  name: 'ACSForm',
+  components: {
+    PaymentACSForm: () => import('@/components/PaymentACSForm.vue')
+  }
 }
 </script>
-
-<style scoped></style>

@@ -5,7 +5,7 @@
     <img
       class="relative object-cover w-full h-full rounded-xl"
       :src="
-        'http://10.1.1.14:80/static/bgs/card/' + currentCardBackground + '.jpeg'
+        'http://10.1.1.14/static/bgs/card/' + currentCardBackground + '.jpeg'
       "
       alt="Card background"
     />
@@ -87,7 +87,7 @@ export default {
 .slide-fade-enter, .slide-fade-leave-to
   /* .slide-fade-leave-active below version 2.1.8 */ {
   transform: translateY(-10px);
-  //margin-top: -50px;
+  margin-top: -50px;
   opacity: 0;
 }
 </style>
