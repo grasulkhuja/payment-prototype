@@ -30,7 +30,7 @@
       <ul>
         <li
           class="flex flex-col w-full"
-          v-for="(good, index) in payment.receiptInfo.goods"
+          v-for="(good, index) in goods"
           :key="index"
         >
           <div class="flex w-full justify-between">
@@ -39,7 +39,7 @@
               <p>{{ good.amount }} {{ payment.receiptInfo.currency }}</p>
             </div>
           </div>
-          <ul class="text-gray-800 text-opacity-80">
+          <ul class="text-gray-800 text-opacity-80" v-if="good.sub">
             <li class="flex w-full justify-between px-4">
               <p>Subtotal</p>
               <p>$9.00</p>
@@ -78,23 +78,26 @@ export default {
     this.$store.dispatch('payment/getReceiptInfo', this.$route.params.orderId)
   },
   computed: {
-    ...mapState(['payment'])
+    ...mapState(['payment']),
+    goods() {
+      return this.payment.receiptInfo.goods
+    }
   }
 }
 </script>
 
-<style lang="scss">
-.receipt {
-  $triangle-size: 2px;
-  $stop1: $triangle-size * 1.4;
-  $stop2: $triangle-size * 0.3;
-  $stop1r: $stop1 + 0.08;
-  $stop2r: $stop2 + 0.08;
-  background: linear-gradient(135deg, transparent #{$stop1}, #242323 #{$stop1r})
-      top right,
-    linear-gradient(45deg, #242323 #{$stop2}, transparent #{$stop2r}) top left;
-  background-repeat: repeat-x;
-  background-size: ($triangle-size * 2) $triangle-size;
-  padding: $triangle-size 0;
-}
-</style>
+<!--<style lang="scss">-->
+<!--.receipt {-->
+<!--  $triangle-size: 2px;-->
+<!--  $stop1: $triangle-size * 1.4;-->
+<!--  $stop2: $triangle-size * 0.3;-->
+<!--  $stop1r: $stop1 + 0.08;-->
+<!--  $stop2r: $stop2 + 0.08;-->
+<!--  background: linear-gradient(135deg, transparent #{$stop1}, #242323 #{$stop1r})-->
+<!--      top right,-->
+<!--    linear-gradient(45deg, #242323 #{$stop2}, transparent #{$stop2r}) top left;-->
+<!--  background-repeat: repeat-x;-->
+<!--  background-size: ($triangle-size * 2) $triangle-size;-->
+<!--  padding: $triangle-size 0;-->
+<!--}-->
+<!--</style>-->

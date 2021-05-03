@@ -22,6 +22,15 @@
         Submit
       </button>
     </form>
+    <form id="hiddenForm" method="post" :action="this.url" ref="acsForm">
+      <input
+        type="hidden"
+        v-for="(data, index) in this.data"
+        :name="index"
+        :value="data"
+        :key="index"
+      />
+    </form>
   </div>
 </template>
 
@@ -31,21 +40,37 @@ export default {
   data() {
     return {
       otpCode: null,
+      trialId: null,
       masks: {
         otpMask: '### ###'
-      }
+      },
+      url: ''
     }
   },
   created() {
-    console.log(this.$route.params.acsId)
-    this.$store.dispatch('acsForm/getSMS', { acsId: this.$route.params.acsId })
+    this.$store
+      .dispatch('acsForm/getSMS', {
+        challengeId: this.$route.params.challengeId
+      })
+      .then(response => {
+        this.trialId = response.trialid
+      })
   },
   methods: {
     submitOTPCode() {
-      this.$store.dispatch('acsForm/sendOTPCode', {
-        acsId: this.$route.params.acsId,
-        otpCode: this.otpCode
-      })
+      this.$store
+        .dispatch('acsForm/sendOTPCode', {
+          challengeId: this.$route.params.challengeId,
+          otpCode: this.otpCode,
+          trialid: this.trialId
+        })
+        .then(response => {
+          this.data = response.resources
+          this.url = response.url
+        })
+        .then(() => {
+          this.$refs.acsForm.submit()
+        })
     }
   }
 }

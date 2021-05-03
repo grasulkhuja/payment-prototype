@@ -5,7 +5,7 @@
     <img
       class="relative object-cover w-full h-full rounded-xl"
       :src="
-        'http://10.1.1.14/static/bgs/card/' + currentCardBackground + '.jpeg'
+        'http://10.1.1.12/static/bgs/card/' + currentCardBackground + '.jpeg'
       "
       alt="Card background"
     />

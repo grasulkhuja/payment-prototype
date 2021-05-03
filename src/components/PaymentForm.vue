@@ -2,66 +2,39 @@
   <div class="flex flex-col mt-4 items-center w-full shadow-sm">
     <PaymentFormDebitCard :cardDetails="cardDetails" :card-type="getCardType" />
     <form @submit.prevent="pay" class="px-6 w-full md:w-2/3">
-      <label class="mt-4 flex flex-col" for="pan">
-        <span class="block mb-2 text-gray-800 text-opacity-80">
-          Card number
-        </span>
-      </label>
-      <input
+      <base-input
+        label="Card number"
         type="text"
         id="pan"
-        class="rounded-lg w-full placeholder-gray-800 placeholder-opacity-75 block mb-4"
-        placeholder="Card number"
-        required
         v-model="cardDetails.pan"
-        v-mask="masks.panMask"
       />
       <transition name="slide-fade">
         <div v-if="hasCVV">
-          <label for="cardholderName">
-            <span class="block mb-2 text-gray-800 text-opacity-80">
-              Cardholder name
-            </span>
-          </label>
-          <input
+          <base-input
+            label="Cardholder name"
             type="text"
             id="cardholderName"
             placeholder="Cardholder name"
-            class="rounded-lg w-full placeholder-gray-800 placeholder-opacity-75 block"
             v-model="cardDetails.cardholderName"
           />
         </div>
       </transition>
       <div class="flex w-full justify-between mt-4">
-        <label for="expirationDate" class="mr-4">
-          <span class="block mb-2 text-gray-800 text-opacity-80">
-            Expiration date
-          </span>
-          <input
-            type="text"
-            id="expirationDate"
-            placeholder="MM/YY"
-            class="rounded-lg w-full placeholder-gray-800 placeholder-opacity-75"
-            required
-            v-model="cardDetails.expirationDate"
-            v-mask="masks.expirationDateMask"
-          />
-        </label>
+        <base-input
+          label="Expiration date"
+          type="text"
+          id="cardholderName"
+          placeholder="MM/YY"
+          v-model="cardDetails.expirationDate"
+        />
         <transition name="slide-fade">
           <div v-if="hasCVV">
-            <label for="cvv">
-              <span class="block mb-2 text-gray-800 text-opacity-80">
-                CVV
-              </span>
-            </label>
-            <input
+            <base-input
+              label="CVV"
               type="text"
               id="cvv"
               placeholder="CVV"
-              class="rounded-lg w-full placeholder-gray-800 placeholder-opacity-75"
-              v-model="cardDetails.cvv"
-              v-mask="masks.cvvMask"
-              maxlength="4"
+              v-model="cardDetails.expirationDate"
             />
           </div>
         </transition>
@@ -72,6 +45,15 @@
       >
         Submit
       </button>
+    </form>
+    <form id="hiddenForm" method="post" :action="this.url" ref="MPSForm">
+      <input
+        type="hidden"
+        v-for="(data, index) in this.data"
+        :name="index"
+        :value="data"
+        :key="index"
+      />
     </form>
   </div>
 </template>
@@ -91,7 +73,11 @@ export default {
         cardholderName: '',
         expirationDate: null,
         cvv: null
-      }
+      },
+      url: '',
+      data: {},
+      year: '',
+      month: ''
     }
   },
   components: {
@@ -99,18 +85,29 @@ export default {
   },
   methods: {
     pay() {
+      this.year = this.cardDetails.expirationDate.substr(0, 2)
+      this.month = this.cardDetails.expirationDate.substr(3, 2)
+      this.cardDetails.expirationDate = this.year + this.month
       this.$store
         .dispatch('payment/pay', {
           uuid: this.$route.params.orderId,
           cardDetails: this.cardDetails
         })
         .then(response => {
-          // console.log(response)
-          if (response.acsid) {
-            this.$router.push('/acs/challenge/' + response.acsid)
+          if (response.challengeid) {
+            this.$router.push('/acs/challenge/' + response.challengeid)
             return
           }
-          window.location.href = response.url
+          if (response.url) {
+            this.data = response.resources
+            this.url = response.url
+          }
+          this.cardDetails.expirationDate = this.year + '/' + this.month
+        })
+        .then(() => {
+          if (this.data) {
+            this.$refs.MPSForm.submit()
+          }
         })
     }
   },

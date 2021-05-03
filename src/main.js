@@ -4,9 +4,31 @@ import router from './router'
 import store from './store'
 import './assets/tailwind.css'
 import VueMask from 'v-mask'
+import upperFirst from 'lodash/upperFirst'
+import camelCase from 'lodash/camelCase'
 Vue.use(VueMask)
 // import { VueMaskDirective } from 'v-mask'
 // Vue.directive('mask', VueMaskDirective)
+
+const requireComponent = require.context(
+  './components',
+  false,
+  /Base[A-Z]\w+\.(vue|js)$/
+)
+
+requireComponent.keys().forEach(fileName => {
+  const componentConfig = requireComponent(fileName)
+
+  const componentName = upperFirst(
+    camelCase(
+      fileName
+        .split('/')
+        .pop()
+        .replace(/\.\w+$/, '')
+    )
+  )
+  Vue.component(componentName, componentConfig.default || componentConfig)
+})
 
 Vue.config.productionTip = false
 

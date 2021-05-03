@@ -24,6 +24,7 @@ export const actions = {
   async pay(context, { uuid, cardDetails }) {
     try {
       const response = await ApiService.pay(uuid, cardDetails)
+      console.log(response)
       return response.data
     } catch (error) {
       console.log(error.message)

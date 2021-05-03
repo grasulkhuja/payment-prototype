@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-axios.defaults.baseURL = 'http://10.1.1.14/api/'
+axios.defaults.baseURL = 'https://10.1.1.14/api/'
 axios.defaults.headers.common['Accept'] = `application/json`
 axios.defaults.headers.common['Content-Type'] = `application/json`
 axios.defaults.withCredentials = false
@@ -18,11 +18,14 @@ export default {
     return await axios.post('/order/' + uuid + '/pay', cardDetails)
   },
 
-  async getSMS(acsId) {
-    return await axios.get('/acs/challenge/' + acsId)
+  async getSMS(challengeId) {
+    return await axios.get('/acs/challenge/' + challengeId)
   },
 
-  async sendOTPCode(acsId, otpCode) {
-    return await axios.post('/acs/challenge/' + acsId + '/', otpCode)
+  async sendOTPCode(acsId, otp, trialid) {
+    return await axios.post('/acs/challenge/' + acsId + '/', {
+      otp,
+      trialid
+    })
   }
 }

@@ -20,7 +20,7 @@ const routes = [
     component: lazyLoad('Payment')
   },
   {
-    path: '/acs/challenge/:acsId',
+    path: '/acs/challenge/:challengeId',
     name: 'acs',
     component: lazyLoad('ACSForm')
   },

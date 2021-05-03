@@ -3,25 +3,32 @@ import ApiService from '@/services/ApiService'
 export const namespaced = true
 
 export const state = {}
+
 export const mutations = {}
+
 export const actions = {
-  async getSMS(context, { acsId }) {
+  async getSMS(context, { challengeId }) {
     try {
-      console.log(acsId)
-      const response = await ApiService.getSMS(acsId)
+      const response = await ApiService.getSMS(challengeId)
       console.log(response.data)
+      return response.data
     } catch (error) {
       console.log(error.message)
     }
   },
 
-  async sendOTPCode(context, credentials) {
+  async sendOTPCode(context, { challengeId, otpCode, trialid }) {
     try {
-      const response = await ApiService.sendOTPCode(credentials)
-      console.log(response.data)
+      const response = await ApiService.sendOTPCode(
+        challengeId,
+        otpCode,
+        trialid
+      )
+      return response.data
     } catch (error) {
       console.log(error.message)
     }
   }
 }
+
 export const getters = {}
