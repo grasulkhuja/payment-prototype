@@ -7,6 +7,7 @@
         type="text"
         id="pan"
         v-model="cardDetails.pan"
+        v-mask="masks.panMask"
       />
       <transition name="slide-fade">
         <div v-if="hasCVV">
@@ -26,6 +27,7 @@
           id="cardholderName"
           placeholder="MM/YY"
           v-model="cardDetails.expirationDate"
+          v-mask="masks.expirationDateMask"
         />
         <transition name="slide-fade">
           <div v-if="hasCVV">
@@ -35,6 +37,7 @@
               id="cvv"
               placeholder="CVV"
               v-model="cardDetails.expirationDate"
+              v-mask="masks.cvvMask"
             />
           </div>
         </transition>
@@ -115,13 +118,13 @@ export default {
     getCardType() {
       if (this.cardDetails.pan === '') return ''
       if (this.cardDetails.pan.startsWith('8600'))
-        return 'http://10.1.1.14/static/schemes/logos/uzcard.svg'
+        return 'https://10.1.1.14/static/schemes/logos/uzcard.svg'
       if (this.cardDetails.pan.startsWith('9860'))
-        return 'http://10.1.1.14/static/schemes/logos/humo.svg'
+        return 'https://10.1.1.14/static/schemes/logos/humo.svg'
       if (this.cardDetails.pan.startsWith('5'))
-        return 'http://10.1.1.14/static/schemes/logos/mastercard.svg'
+        return 'https://10.1.1.14/static/schemes/logos/mastercard.svg'
       if (this.cardDetails.pan.startsWith('4'))
-        return 'http://10.1.1.14/static/schemes/logos/visa.svg'
+        return 'https://10.1.1.14/static/schemes/logos/visa.svg'
       return ''
     },
     hasCVV() {
