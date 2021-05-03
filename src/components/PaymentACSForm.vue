@@ -55,9 +55,15 @@ export default {
           trialid: this.trialId
         })
         .then(response => {
-          if (response.resources) {
-            this.data = response.resources
+          if (response.data) {
+            this.data = response.data
+            console.log(this.data)
+            debugger
             this.url = response.url
+          }
+        })
+        .then(() => {
+          if (this.data) {
             this.$refs.acsForm.submit()
           }
         })

@@ -96,11 +96,15 @@ export default {
           if (response.resources) {
             this.data = response.resources
             this.url = response.url
-            this.$refs.MPSForm.submit()
             return
           }
           if (response.challengeid) {
             this.$router.push('/acs/challenge/' + response.challengeid)
+          }
+        })
+        .then(() => {
+          if (this.data) {
+            this.$refs.MPSForm.submit()
           }
         })
     }
