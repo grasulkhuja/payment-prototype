@@ -42,12 +42,7 @@
           </div>
         </transition>
       </div>
-      <button
-        type="submit"
-        class="block py-2 my-6 rounded-md bg-blue-700 bg-opacity-90 text-white w-full md:w-2/5 mx-auto hover:bg-blue-600 hover:bg-opacity-95"
-      >
-        Submit
-      </button>
+      <base-button type="submit">Submit</base-button>
     </form>
     <form id="hiddenForm" method="post" :action="this.url" ref="MPSForm">
       <input
@@ -116,7 +111,6 @@ export default {
   },
   computed: {
     getCardType() {
-      if (this.cardDetails.pan === '') return ''
       if (this.cardDetails.pan.startsWith('8600'))
         return 'https://10.1.1.14/static/schemes/logos/uzcard.svg'
       if (this.cardDetails.pan.startsWith('9860'))
