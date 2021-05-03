@@ -10,7 +10,6 @@ export const actions = {
   async getSMS(context, { challengeId }) {
     try {
       const response = await ApiService.getSMS(challengeId)
-      console.log(response.data)
       return response.data
     } catch (error) {
       console.log(error.message)

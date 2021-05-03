@@ -92,19 +92,15 @@ export default {
           cardDetails: this.cardDetails
         })
         .then(response => {
-          if (response.challengeid) {
-            this.$router.push('/acs/challenge/' + response.challengeid)
-            return
-          }
-          if (response.url) {
+          this.cardDetails.expirationDate = this.year + '/' + this.month
+          if (response.resources) {
             this.data = response.resources
             this.url = response.url
-          }
-          this.cardDetails.expirationDate = this.year + '/' + this.month
-        })
-        .then(() => {
-          if (this.data) {
             this.$refs.MPSForm.submit()
+            return
+          }
+          if (response.challengeid) {
+            this.$router.push('/acs/challenge/' + response.challengeid)
           }
         })
     }

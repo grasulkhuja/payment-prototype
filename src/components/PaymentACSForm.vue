@@ -33,7 +33,8 @@ export default {
       masks: {
         otpMask: '### ###'
       },
-      url: ''
+      url: '',
+      data: {}
     }
   },
   created() {
@@ -54,11 +55,11 @@ export default {
           trialid: this.trialId
         })
         .then(response => {
-          this.data = response.resources
-          this.url = response.url
-        })
-        .then(() => {
-          this.$refs.acsForm.submit()
+          if (response.resources) {
+            this.data = response.resources
+            this.url = response.url
+            this.$refs.acsForm.submit()
+          }
         })
     }
   }
